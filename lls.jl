@@ -2,7 +2,7 @@ function __init__()
     currentDir()
     #readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
     #listOfFilesInDir("/home/kali/Documents/logs/android logs/")
-    readAllFile("/home/kali/Documents/logs/android logs/test/")
+    readFirstFile("/home/kali/Documents/logs/android logs/test/")
 end
 
 
@@ -42,6 +42,13 @@ function readAllFile(dir)
        # dump(stat(f)) # you can customize what you want to print
     end
 end
+
+function readFirstFile(dir)
+    file_name = first(readdir(dir))
+    file_path = dir * "/" * file_name
+    readFile(file_path)
+end
+
 
 
 
