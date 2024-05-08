@@ -12,7 +12,7 @@ end
 
 
 function readFile(filePath)
-    open(filePath) do f
+    open(filePath,r) do f
         line = 0
         while ! eof(f)
             s = readline(f) 
@@ -32,6 +32,8 @@ function listOfFilesInDir(dir)
 end
 
 
+
+    
 
 
 
