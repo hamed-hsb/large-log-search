@@ -1,7 +1,7 @@
 function __init__()
     currentDir()
-   # readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
-   listOfFilesInDir("/home/kali/Documents/logs/android logs/")
+    readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
+   #listOfFilesInDir("/home/kali/Documents/logs/android logs/")
 end
 
 
@@ -12,7 +12,7 @@ end
 
 
 function readFile(filePath)
-    open(filePath,r) do f
+    open(filePath,"r") do f
         line = 0
         while ! eof(f)
             s = readline(f) 
