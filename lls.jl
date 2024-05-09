@@ -66,7 +66,7 @@ function isDirFile(dir)
     if count_of_file > 0
         return true
     else
-        println(ERR_MESS_DIR_IS_EMPTY)
+        println("Error: $ERR_MESS_DIR_IS_EMPTY")
         return false
     end
 end
