@@ -3,6 +3,9 @@ ERR_MESS_IS_NOT_DIR = "no such file or directory"
 
 INFO_MESS_CREATE_FOLDER = "Result folder created successfully."
 
+
+result_dir_name = "result"
+
 function __init__()
     currentDir()
     #readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
@@ -96,7 +99,7 @@ end
 
 
 function createFolder(dir)
-    path = dir * "/result" 
+    path = dir * "/$result_dir_name" 
     if  isExistsDir(dir)
         if ! checkExistDir(path)
         mkdir(path) 
