@@ -1,11 +1,12 @@
-ERR_MESS_DIR_IS_EMPTY = "The directory is empty."
+ERR_MESS_DIR_IS_EMPTY = "the directory is empty."
+ERR_MESS_IS_NOT_DIR = "no such file or directory"
 
 function __init__()
     currentDir()
     #readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
     #listOfFilesInDir("/home/kali/Documents/logs/android logs/")
     #readLastFile("/home/kali/Documents/logs/android logs/test/")
-    isDirFile("/home/kali/Documents/logs/all logs/test1")
+    isExistsDir("/home/kali/Documents/logs/all logs/test12")
 end
 
 
@@ -67,6 +68,17 @@ function isDirFile(dir)
     else
         println(ERR_MESS_DIR_IS_EMPTY)
         return false
+    end
+end
+
+function isExistsDir(dir)
+    try
+        readdir(dir)
+        return true
+    catch
+        println("Error: $ERR_MESS_IS_NOT_DIR")
+        return false
+
     end
 end
 
