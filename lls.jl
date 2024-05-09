@@ -1,12 +1,14 @@
 ERR_MESS_DIR_IS_EMPTY = "the directory is empty."
 ERR_MESS_IS_NOT_DIR = "no such file or directory"
 
+INFO_MESS_CREATE_FOLDER = "Result folder created successfully."
+
 function __init__()
     currentDir()
     #readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
     #listOfFilesInDir("/home/kali/Documents/logs/android logs/")
     #readLastFile("/home/kali/Documents/logs/android logs/test/")
-    isExistsDir("/home/kali/Documents/logs/all logs/test12")
+    createFolder("/home/kali/Documents/logs/all logs/")
 end
 
 
@@ -79,6 +81,27 @@ function isExistsDir(dir)
         println("Error: $ERR_MESS_IS_NOT_DIR")
         return false
 
+    end
+end
+
+function checkExistDir(dir)
+    try
+        readdir(dir)
+        return true
+    catch
+        return false
+
+    end
+end
+
+
+function createFolder(dir)
+    path = dir * "/result" 
+    if  isExistsDir(dir)
+        if ! checkExistDir(path)
+        mkdir(path) 
+        println("Info: $INFO_MESS_CREATE_FOLDER")
+        end
     end
 end
 
