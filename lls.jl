@@ -1,8 +1,11 @@
+ERR_MESS_DIR_IS_EMPTY = "The directory is empty."
+
 function __init__()
     currentDir()
     #readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
     #listOfFilesInDir("/home/kali/Documents/logs/android logs/")
-    readLastFile("/home/kali/Documents/logs/android logs/test/")
+    #readLastFile("/home/kali/Documents/logs/android logs/test/")
+    isDirFile("/home/kali/Documents/logs/all logs/test1")
 end
 
 
@@ -57,6 +60,15 @@ function readLastFile(dir)
    
 end
 
+function isDirFile(dir)
+    count_of_file = length(readdir(dir))
+    if count_of_file > 0
+        return true
+    else
+        println(ERR_MESS_DIR_IS_EMPTY)
+        return false
+    end
+end
 
 __init__()
 
