@@ -9,6 +9,10 @@ INFO_MESS_CREATE_FOLDER = "Result folder created successfully."
 result_dir_name = "result"
 result_file_name = "result.log"
 
+function main()
+end
+
+
 function __init__()
     currentDir()
     #readFile("/home/kali/Documents/logs/android logs/laravel-2024-04-20.log")
@@ -118,7 +122,14 @@ function createLogFile(dir)
     touch(file)
 end
 
-__init__()
+function readInput()
+    return readline()
+end
+
+
+main()
+
+
 
 
 
