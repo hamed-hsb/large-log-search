@@ -1,3 +1,5 @@
+
+
 ERR_MESS_DIR_IS_EMPTY = "the directory is empty."
 ERR_MESS_IS_NOT_DIR = "no such file or directory"
 
@@ -5,6 +7,7 @@ INFO_MESS_CREATE_FOLDER = "Result folder created successfully."
 
 
 result_dir_name = "result"
+result_file_name = "result.log"
 
 function __init__()
     currentDir()
@@ -12,6 +15,7 @@ function __init__()
     #listOfFilesInDir("/home/kali/Documents/logs/android logs/")
     #readLastFile("/home/kali/Documents/logs/android logs/test/")
     createFolder("/home/kali/Documents/logs/all logs/")
+    createLogFile("/home/kali/Documents/logs/all logs/")
 end
 
 
@@ -106,6 +110,12 @@ function createFolder(dir)
         println("Info: $INFO_MESS_CREATE_FOLDER")
         end
     end
+end
+
+
+function createLogFile(dir)
+    file = dir * "/" *result_dir_name * "/" * result_file_name
+    touch(file)
 end
 
 __init__()
