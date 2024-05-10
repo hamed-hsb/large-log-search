@@ -35,7 +35,6 @@ function __init__()
    
  
     if save_file_state == "0"
-        println("/home/kali/Documents/logs/all logs")
         createFolder(dir_path)
         createLogFile(dir_path)
     end 
@@ -67,7 +66,7 @@ function readFile(filePath,pathDir)
             s = readline(f) 
             line += 1
 
-            println(save_file_state)
+            
             if save_file_state == "0"
                 insertToResultFileLog(file_path_result_log,s)
             end
