@@ -9,6 +9,8 @@ INPUT_MESS_DIRECTORY_PATH = "Enter directory path:"
 INPUT_MESS_CHOOSE_READ_FILE = "Choose one of the following modes to read files: \n read all file in directory (0). \n read first file in directory (1). \n read last file in directory (2). \n Enter Number :"
 INPUT_MESS_CHOOSE_SAVE_FILTER = "Choose one of the following modes to read files: \n save (0). \n does not save (1).  \n Enter Number :"
 
+
+
 result_dir_name = "result"
 result_file_name = "result.log"
 
@@ -49,6 +51,7 @@ function __init__()
         createLogFile(dir_path)
     end 
 
+    showFieldsState()
 
     if read_file_state == "0"
         readAllFile(dir_path)
@@ -67,19 +70,31 @@ function currentDir()
 end
 
 
-function readFile(filePath,pathDir)
+function readFileWithSave(filePath,result_file_path)
     println("file path : $filePath")
-    file_path_result_log = pathDir * "/" *result_dir_name * "/" * result_file_name
+
     open(filePath,"r") do f
         line = 0
         while ! eof(f)
             s = readline(f) 
             line += 1
+            
+                insertToResultFileLog(result_file_path,s)
+        
+        end
+   
+    end
+end
 
-            
-            
-                insertToResultFileLog(file_path_result_log,s)
-           
+
+function readFileWithoutSave(filePath)
+    println("file path : $filePath")
+
+    open(filePath,"r") do f
+        line = 0
+        while ! eof(f)
+            s = readline(f) 
+            line += 1
         
         end
    
@@ -97,9 +112,21 @@ end
 
 function readAllFile(dir)
     file_path = ""
+
+
+    if save_file_state == "0"
+        op_result_log_file = openFile(dir)
+   end
+
     foreach(readdir(dir)) do f
         file_path = dir * "/" * f
-        readFile(file_path,dir)
+
+        if save_file_state == "0"
+            readFileWithSave(file_path,op_result_log_file)
+        else
+            readFileWithoutSave(file_path)
+       end
+       
        # dump(stat(f)) # you can customize what you want to print
     end
 end
@@ -107,14 +134,34 @@ end
 function readFirstFile(dir)
     file_name = first(readdir(dir))
     file_path = dir * "/" * file_name
-    readFile(file_path,dir)
+
+    if save_file_state == "0"
+        op_result_log_file = openFile(dir)
+   end
+
+    if save_file_state == "0"
+        readFileWithSave(file_path,op_result_log_file)
+    else
+        readFileWithoutSave(file_path)
+   end
+
+ 
 end
 
 
 function readLastFile(dir)
     file_name = last(readdir(dir))
     file_path = dir * "/" * file_name
-    readFile(file_path,dir)
+   
+    if save_file_state == "0"
+        op_result_log_file = openFile(dir)
+   end
+
+    if save_file_state == "0"
+        readFileWithSave(file_path,op_result_log_file)
+    else
+        readFileWithoutSave(file_path)
+   end
    
 end
 
@@ -170,13 +217,19 @@ function readInput()
     return readline()
 end
 
-function insertToResultFileLog(filePath,text)
-   
-    file = open(filePath,"a")
-    write(file,text)
-  
+function openFile(dir)
+    file_path_result_log = dir * "/" *result_dir_name * "/" * result_file_name
+    return open(file_path_result_log,"a")
 end
 
+function insertToResultFileLog(file,text)
+    write(file,text)
+end
+
+function showFieldsState()
+    message = "\n\n Configs: \n - state read file: $read_file_state \n - state save file: $save_file_state \n\n Start App -> \n\n"
+    println(message)
+end
 
 main()
 
