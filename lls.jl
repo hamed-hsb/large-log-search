@@ -17,8 +17,18 @@ read_file_state = "-1"
 
 function main()
     __init__()
+ #@sync test()
 end
 
+
+function test()
+    n = 10
+a = zeros(n)
+Threads.@threads for i = 1:n
+    a[i] = Threads.threadid()
+end
+println(a)
+end
 
 function __init__()
     println(INPUT_MESS_DIRECTORY_PATH)
@@ -67,9 +77,9 @@ function readFile(filePath,pathDir)
             line += 1
 
             
-            if save_file_state == "0"
+            
                 insertToResultFileLog(file_path_result_log,s)
-            end
+           
         
         end
    
@@ -161,7 +171,7 @@ function readInput()
 end
 
 function insertToResultFileLog(filePath,text)
-    println("s s: $filePath")
+   
     file = open(filePath,"a")
     write(file,text)
   
