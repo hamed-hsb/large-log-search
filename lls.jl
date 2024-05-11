@@ -1,4 +1,12 @@
 
+# Packages
+using Plots
+
+using Pkg
+Pkg.add("Plots")
+Pkg.add("Plotly")
+Pkg.add("PlotlyBase")
+
 
 ERR_MESS_DIR_IS_EMPTY = "the directory is empty."
 ERR_MESS_IS_NOT_DIR = "no such file or directory"
@@ -19,11 +27,10 @@ read_file_state = "-1"
 phrase_filter = " "
 
 function main()
-   #y = ["hamed safarzad","vahid","farzad","farshad"]
    __init__()
-   #println(contains("{gps_adid_attempt country IR api level 33 event_buffering_enabled 1 hardware_name TKQ1.221114.001 test-keys subsession_count 4 mnc 11 os_version 13 android_uuid 2326d605-a3e5-4ae0-932d-8e14764e161e","gps"))
- 
+
 end
+
 
 
 function list_files_in_path(path::String)
@@ -71,13 +78,13 @@ function __init__()
 end
 
 
-function currentDir() 
+function current_dir() 
     println("Current Directory: ",pwd())
     return pwd()
 end
 
 
-function readFileWithSave(filePath,result_file_path)
+function read_file_with_save(filePath,result_file_path)
     println("file path : $filePath")
 
     open(filePath,"r") do f
@@ -131,7 +138,7 @@ function readAllFile(dir)
         file_path = dir * "/" * f
 
         if save_file_state == "0"
-            readFileWithSave(file_path,op_result_log_file)
+            read_file_with_save(file_path,op_result_log_file)
         else
             readFileWithoutSave(file_path)
        end
@@ -150,7 +157,7 @@ function readFirstFile(dir)
    end
 
     if save_file_state == "0"
-        readFileWithSave(file_path,op_result_log_file)
+        read_file_with_save(file_path,op_result_log_file)
     else
         readFileWithoutSave(file_path)
    end
@@ -168,7 +175,7 @@ function readLastFile(dir)
    end
 
     if save_file_state == "0"
-        readFileWithSave(file_path,op_result_log_file)
+        read_file_with_save(file_path,op_result_log_file)
     else
         readFileWithoutSave(file_path)
    end
