@@ -3,9 +3,9 @@
 using Plots
 
 using Pkg
-Pkg.add("Plots")
-Pkg.add("Plotly")
-Pkg.add("PlotlyBase")
+#Pkg.add("Plots")
+#Pkg.add("Plotly")
+#Pkg.add("PlotlyBase")
 
 
 ERR_MESS_DIR_IS_EMPTY = "the directory is empty."
@@ -45,20 +45,22 @@ end
 
 function __init__()
     println(INPUT_MESS_DIRECTORY_PATH)
-    dir_path = readInput()
+    dir_path = read_input()
 
     println(INPUT_MESS_CHOOSE_READ_FILE)
-    global read_file_state = readInput()
+    global read_file_state = read_input()
 
 
     println(INPUT_MESS_CHOOSE_SAVE_FILTER)
-    global save_file_state = readInput()
+    global save_file_state = read_input()
 
     println(INPUT_MESS_PHRASE_TO_SEARCH)
-    global phrase_filter = readInput()
+    global phrase_filter = read_input()
 
   
-   
+     if ! is_dir_has_file(dir_path)
+        return
+    end
  
     if save_file_state == "0"
         createFolder(dir_path)
@@ -67,12 +69,15 @@ function __init__()
 
     showFieldsState()
 
+  
+
+
     if read_file_state == "0"
-        readAllFile(dir_path)
+        read_all_file(dir_path)
     elseif read_file_state == "1"
-        readFirstFile(dir_path)
+        read_first_file(dir_path)
     elseif read_file_state == "2"
-        readLastFile(dir_path)
+        read_last_file(dir_path)
     end
 
 end
@@ -103,7 +108,7 @@ function read_file_with_save(filePath,result_file_path)
 end
 
 
-function readFileWithoutSave(filePath)
+function read_file_without_save(filePath)
     println("file path : $filePath")
 
     open(filePath,"r") do f
@@ -118,7 +123,7 @@ function readFileWithoutSave(filePath)
 end
 
 
-function listOfFilesInDir(dir)
+function list_of_files_in_dir(dir)
     foreach(readdir(dir)) do f
         println("File name: ",f)
        # dump(stat(f)) # you can customize what you want to print
@@ -126,12 +131,12 @@ function listOfFilesInDir(dir)
 end
 
 
-function readAllFile(dir)
+function read_all_file(dir)
     file_path = ""
 
 
     if save_file_state == "0"
-        op_result_log_file = openFile(dir)
+        op_result_log_file = open_file(dir)
    end
 
     foreach(list_files_in_path(dir)) do f
@@ -140,7 +145,7 @@ function readAllFile(dir)
         if save_file_state == "0"
             read_file_with_save(file_path,op_result_log_file)
         else
-            readFileWithoutSave(file_path)
+            read_file_without_save(file_path)
        end
        
        # dump(stat(f)) # you can customize what you want to print
@@ -148,41 +153,41 @@ function readAllFile(dir)
 
 end
 
-function readFirstFile(dir)
+function read_first_file(dir)
     file_name = first(list_files_in_path(dir))
     file_path = dir * "/" * file_name
 
     if save_file_state == "0"
-        op_result_log_file = openFile(dir)
+        op_result_log_file = open_file(dir)
    end
 
     if save_file_state == "0"
         read_file_with_save(file_path,op_result_log_file)
     else
-        readFileWithoutSave(file_path)
+        read_file_without_save(file_path)
    end
 
  
 end
 
 
-function readLastFile(dir)
+function read_last_file(dir)
     file_name = last(list_files_in_path(dir))
     file_path = dir * "/" * file_name
    
     if save_file_state == "0"
-        op_result_log_file = openFile(dir)
+        op_result_log_file = open_file(dir)
    end
 
     if save_file_state == "0"
         read_file_with_save(file_path,op_result_log_file)
     else
-        readFileWithoutSave(file_path)
+        read_file_without_save(file_path)
    end
    
 end
 
-function isDirFile(dir)
+function is_dir_has_file(dir)
     count_of_file = length(list_files_in_path(dir))
     if count_of_file > 0
         return true
@@ -230,11 +235,11 @@ function createLogFile(dir)
     touch(file)
 end
 
-function readInput()
+function read_input()
     return readline()
 end
 
-function openFile(dir)
+function open_file(dir)
     file_path_result_log = dir * "/" *result_dir_name * "/" * result_file_name
     return open(file_path_result_log,"a")
 end
