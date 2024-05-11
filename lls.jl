@@ -63,8 +63,8 @@ function __init__()
     end
  
     if save_file_state == "0"
-        createFolder(dir_path)
-        createLogFile(dir_path)
+        create_folder(dir_path)
+        create_log_file(dir_path)
     end 
 
     showFieldsState()
@@ -219,7 +219,7 @@ function check_exist_dir(dir)
 end
 
 
-function createFolder(dir)
+function create_folder(dir)
     path = dir * "/$result_dir_name" 
     if  is_exists_dir(dir)
         if ! check_exist_dir(path)
@@ -230,7 +230,7 @@ function createFolder(dir)
 end
 
 
-function createLogFile(dir)
+function create_log_file(dir)
     file =  dir * "/" *result_dir_name * "/" * result_file_name
     touch(file)
 end
