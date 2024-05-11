@@ -197,7 +197,7 @@ function is_dir_has_file(dir)
     end
 end
 
-function isExistsDir(dir)
+function is_exists_dir(dir)
     try
         readdir(dir)
         return true
@@ -221,7 +221,7 @@ end
 
 function createFolder(dir)
     path = dir * "/$result_dir_name" 
-    if  isExistsDir(dir)
+    if  is_exists_dir(dir)
         if ! checkExistDir(path)
         mkdir(path) 
         println("Info: $INFO_MESS_CREATE_FOLDER")
