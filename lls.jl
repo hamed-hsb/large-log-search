@@ -18,12 +18,21 @@ save_file_state = "-1"
 read_file_state = "-1"
 
 function main()
-    __init__()
+   __init__()
+   #println(list_files_in_path("/home/kali"))
  
 end
 
 
-
+function list_files_in_path(path::String)
+    # Get a list of all items (files and directories) in the path
+    all_items = readdir(path)
+    
+    # Filter out directories to get only files
+    files = filter(item -> isfile(joinpath(path, item)), all_items)
+    
+    return files
+end
 
 function __init__()
     println(INPUT_MESS_DIRECTORY_PATH)
@@ -111,7 +120,7 @@ function readAllFile(dir)
         op_result_log_file = openFile(dir)
    end
 
-    foreach(readdir(dir)) do f
+    foreach(list_files_in_path(dir)) do f
         file_path = dir * "/" * f
 
         if save_file_state == "0"
@@ -125,7 +134,7 @@ function readAllFile(dir)
 end
 
 function readFirstFile(dir)
-    file_name = first(readdir(dir))
+    file_name = first(list_files_in_path(dir))
     file_path = dir * "/" * file_name
 
     if save_file_state == "0"
@@ -143,7 +152,7 @@ end
 
 
 function readLastFile(dir)
-    file_name = last(readdir(dir))
+    file_name = last(list_files_in_path(dir))
     file_path = dir * "/" * file_name
    
     if save_file_state == "0"
@@ -159,7 +168,7 @@ function readLastFile(dir)
 end
 
 function isDirFile(dir)
-    count_of_file = length(readdir(dir))
+    count_of_file = length(list_files_in_path(dir))
     if count_of_file > 0
         return true
     else
