@@ -8,7 +8,7 @@ INFO_MESS_CREATE_FOLDER = "Result folder created successfully."
 INPUT_MESS_DIRECTORY_PATH = "Enter directory path:"
 INPUT_MESS_CHOOSE_READ_FILE = "Choose one of the following modes to read files: \n read all file in directory (0). \n read first file in directory (1). \n read last file in directory (2). \n Enter Number :"
 INPUT_MESS_CHOOSE_SAVE_FILTER = "Choose one of the following modes to read files: \n save (0). \n does not save (1).  \n Enter Number :"
-
+INPUT_MESS_PHRASE_TO_SEARCH = "Enter a phrase to search in the files:\n"
 
 
 result_dir_name = "result"
@@ -16,10 +16,12 @@ result_file_name = "result.log"
 
 save_file_state = "-1"
 read_file_state = "-1"
+phrase_filter = " "
 
 function main()
+   #y = ["hamed safarzad","vahid","farzad","farshad"]
    __init__()
-   #println(list_files_in_path("/home/kali"))
+   #println(contains("{gps_adid_attempt country IR api level 33 event_buffering_enabled 1 hardware_name TKQ1.221114.001 test-keys subsession_count 4 mnc 11 os_version 13 android_uuid 2326d605-a3e5-4ae0-932d-8e14764e161e","gps"))
  
 end
 
@@ -44,6 +46,9 @@ function __init__()
 
     println(INPUT_MESS_CHOOSE_SAVE_FILTER)
     global save_file_state = readInput()
+
+    println(INPUT_MESS_PHRASE_TO_SEARCH)
+    global phrase_filter = readInput()
 
   
    
@@ -80,9 +85,11 @@ function readFileWithSave(filePath,result_file_path)
         while ! eof(f)
             s = readline(f) 
             line += 1
-            
-                insertToResultFileLog(result_file_path,s)
-        
+
+            #result = filter(x-> occursin("$phrase_filter", x), s)
+            if contains("$s","$phrase_filter")
+             insertToResultFileLog(result_file_path,s)
+            end
         end
    
     end
@@ -131,6 +138,7 @@ function readAllFile(dir)
        
        # dump(stat(f)) # you can customize what you want to print
     end
+
 end
 
 function readFirstFile(dir)
@@ -224,9 +232,16 @@ function openFile(dir)
     return open(file_path_result_log,"a")
 end
 
+function closeFile(dir)
+    file_path_result_log = dir * "/" *result_dir_name * "/" * result_file_name
+    close(file_path_result_log)
+end
+
 function insertToResultFileLog(file,text)
     write(file,text)
 end
+
+
 
 function showFieldsState()
     message = "\n\n Configs: \n - state read file: $read_file_state \n - state save file: $save_file_state \n\n Start App -> \n\n"
