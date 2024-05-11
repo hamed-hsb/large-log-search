@@ -244,7 +244,7 @@ function open_file(dir)
     return open(file_path_result_log,"a")
 end
 
-function closeFile(dir)
+function close_file(dir)
     file_path_result_log = dir * "/" *result_dir_name * "/" * result_file_name
     close(file_path_result_log)
 end
