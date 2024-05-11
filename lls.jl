@@ -244,7 +244,7 @@ end
 
 
 function showFieldsState()
-    message = "\n\n Configs: \n - state read file: $read_file_state \n - state save file: $save_file_state \n\n Start App -> \n\n"
+    message = "\n\n Configs: \n - state read file: $read_file_state \n - state save file: $save_file_state \n\n - phrase: $phrase_filter \n\n Start App -> \n\n"
     println(message)
 end
 
