@@ -19,18 +19,11 @@ read_file_state = "-1"
 
 function main()
     __init__()
- #@sync test()
+ 
 end
 
 
-function test()
-    n = 10
-a = zeros(n)
-Threads.@threads for i = 1:n
-    a[i] = Threads.threadid()
-end
-println(a)
-end
+
 
 function __init__()
     println(INPUT_MESS_DIRECTORY_PATH)
