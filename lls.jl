@@ -1,5 +1,6 @@
 # Packages
 using Plots
+using Dates
 
 using Pkg
 #Pkg.add("Plots")
@@ -25,6 +26,11 @@ phrase_filter = " "
 # Main function
 function main()
    __init__()
+  #testTimae()
+end
+
+function testTimae()
+    println(readdir("/home/kali"))
 end
 
 # Initialize the application
@@ -65,6 +71,16 @@ end
 function current_dir() 
     println("Current Directory: ", pwd())
     return pwd()
+end
+
+function list_files_in_path(path::String)
+    # Get a list of all items (files and directories) in the path
+    all_items = readdir(path)
+
+    # Filter out directories to get only files
+    files = filter(item -> isfile(joinpath(path, item)), all_items)
+
+    return files
 end
 
 # Read a file with saving to the result log file
@@ -210,7 +226,9 @@ end
 
 # Open the result log file
 function open_file(dir)
-    file_path_result_log = dir * "/" * result_dir_name * "/" * result_file_name
+    file_dir_path = dir * "/" * result_dir_name
+    file_name = generate_name_for_result_log_file(file_dir_path)
+    file_path_result_log = dir * "/" * result_dir_name * "/" * file_name
     return open(file_path_result_log,"a")
 end
 
@@ -229,6 +247,24 @@ end
 function show_fields_state()
     message = "\n\n Configs: \n - state read file: $read_file_state \n - state save file: $save_file_state \n\n - phrase: $phrase_filter \n\n Start App -> \n\n"
     println(message)
+end
+
+
+function generate_name_for_result_log_file(dir)
+       println(get_date)
+       println(Dates.today())
+    count:: Int32 = count_files(dir) 
+    count +=1
+ 
+    return result_file_name = string(Dates.today()) * "_" * string(count)
+end
+
+function  count_files(dir)
+  return length(readdir(dir))
+end
+
+function get_date()
+  return Dates.today()
 end
 
 # Call the main function
