@@ -251,8 +251,6 @@ end
 
 
 function generate_name_for_result_log_file(dir)
-       println(get_date)
-       println(Dates.today())
     count:: Int32 = count_files(dir) 
     count +=1
  
