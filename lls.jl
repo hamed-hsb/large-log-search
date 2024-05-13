@@ -22,15 +22,34 @@ result_file_name = "result.log"
 save_file_state = "-1"
 read_file_state = "-1"
 phrase_filter = " "
+total_find:: Int32 = 0
+total_line:: Int32 = 0
+total_file:: Int32 = 0
 
 # Main function
 function main()
-   __init__()
-  #testTimae()
+   #__init__()
+  testTimae()
 end
 
 function testTimae()
-    println(readdir("/home/kali"))
+  
+# another vector in y-axis
+z = rand(10)
+ 
+# to plot on previous graph
+plot!(z, linecolor =:red, 
+          line =:dashdot, 
+          labels = "Z")
+
+
+          x = range(0, 10, length=100)
+y = sin.(x)
+p=plot(x, y)
+
+savefig("myplot.png")      # saves the CURRENT_PLOT as a .png
+savefig(p, "myplot.pdf")   # saves the plot from p as a .pdf vector graphic
+
 end
 
 # Initialize the application
@@ -93,7 +112,10 @@ function read_file_with_save(filePath, result_file_path)
             s = readline(f) 
             line += 1
 
+             total_line += 1
+
             if contains("$s","$phrase_filter")
+                total_find += 1
                 insert_to_result_file_log(result_file_path, s)
             end
         end
@@ -128,6 +150,7 @@ function read_all_file(dir)
     end
 
     foreach(list_files_in_path(dir)) do f
+        total_file += 1
         file_path = dir * "/" * f
 
         if save_file_state == "0"
@@ -147,6 +170,8 @@ function read_first_file(dir)
         op_result_log_file = open_file(dir)
     end
 
+    total_file += 1
+
     if save_file_state == "0"
         read_file_with_save(file_path, op_result_log_file)
     else
@@ -162,6 +187,8 @@ function read_last_file(dir)
     if save_file_state == "0"
         op_result_log_file = open_file(dir)
     end
+    
+    total_file += 1
 
     if save_file_state == "0"
         read_file_with_save(file_path, op_result_log_file)
@@ -263,6 +290,10 @@ end
 
 function get_date()
   return Dates.today()
+end
+
+function show_final_result()
+    println("Result: \n\n total files: $total_file \n total line: $total_line \n total find: $total_find \n")
 end
 
 # Call the main function
