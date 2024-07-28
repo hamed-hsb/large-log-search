@@ -28,8 +28,8 @@ total_file:: Int32 = 0
 
 # Main function
 function main()
-   #__init__()
-  testTimae()
+   __init__()
+  #testTimae()
 end
 
 function testTimae()
@@ -105,7 +105,8 @@ end
 # Read a file with saving to the result log file
 function read_file_with_save(filePath, result_file_path)
     println("file path : $filePath")
-
+    total_line = 0
+    total_find = 0
     open(filePath,"r") do f
         line = 0
         while ! eof(f)
@@ -144,6 +145,7 @@ end
 
 # Read all files in a directory
 function read_all_file(dir)
+    total_file = 0
     file_path = ""
     if save_file_state == "0"
         op_result_log_file = open_file(dir)
@@ -163,6 +165,7 @@ end
 
 # Read the first file in a directory
 function read_first_file(dir)
+    total_file = 0
     file_name = first(list_files_in_path(dir))
     file_path = dir * "/" * file_name
 
@@ -181,6 +184,7 @@ end
 
 # Read the last file in a directory
 function read_last_file(dir)
+    total_file = 0
     file_name = last(list_files_in_path(dir))
     file_path = dir * "/" * file_name
    
